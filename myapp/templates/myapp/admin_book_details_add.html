@@ -1,0 +1,31 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}Book Add{% endblock %}
+{% block body %}
+<center>
+    <h2><font color="#366092">Book Add</font></h2>
+	<div class="container">
+		<div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form name="frm" role="form" action="{% url 'admin_book_details_add' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input class="form-control" type="hidden" name="bid" value="{{bid}}">
+        <div class="form-group">
+			<label for="document">E Book File</label>
+			<input class="form-control" type="file" id="document" name="document">
+		</div>
+        <br>
+        <br>
+	   <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+           <h2>{{msg}} </h2>
+
+    </form>
+	</div>
+			 <div class="col"></div>
+		</div>
+	</div>
+
+</center>
+{% endblock %}

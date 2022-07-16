@@ -1,0 +1,76 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}Books View{% endblock %}
+{% block body %}
+<center>
+    <h2><font color="#366092">Books View</font></h2>
+<div class="container">
+    <form name="frm" action="" method="post">
+            {% csrf_token %}
+        <br>
+        <a class="text-warning" href="../admin_book_details_view?cnt={{pcnt}}">Previous</a>
+        <a class="text-success" href="../admin_book_details_view?cnt={{cnt}}">Next</a>
+        <br><br><br>
+        <table class="table table-striped table-bordered auto-index">
+       <thead>
+            <tr>
+                <th>ID</th>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year of Publication </th>
+                <th>Publisher</th>
+                <th>Picture</th>
+                <th>Options</th>
+
+        </tr>
+        </thead>
+        {% for t in book_list %}
+        <tbody>
+            <tr class="info ">
+                <td></td>
+                <td>{{t.isbn }}</td>
+                <td>{{t.title }}</td>
+                <td>{{t.author }}</td>
+                <td>{{t.pub_year }}</td>
+                <td>{{t.publisher }}</td>
+
+                <td><a href="{{t.urll}}"><img src="{{t.urls }}" width="100" height="100"></a></td>
+                <td>
+                    <a class="btn btn-primary" href="../admin_book_details_add?bid={{t.id}}">Add Book</a>
+                    <br>
+                    <br>
+                    {% if t.file_path != 'none' %}
+                    <a class="btn btn-success" href="../static/myapp/media/{{ t.file_path }}">Download</a>
+                    <br>
+                    <br>
+                    {% endif %}
+
+                    <a class="btn btn-danger" href="../admin_book_details_delete?id={{t.id}}">Delete</a>
+                </td>
+        </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+        <br/>
+        <a class="text-warning" href="../admin_book_details_view?cnt={{pcnt}}">Previous</a>
+        <a class="text-success" href="../admin_book_details_view?cnt={{cnt}}">Next</a>
+{{msg}}
+    </form>
+</div>
+</center>
+<style>
+  form
+  {
+    counter-reset: Serial;
+  }
+  table
+  {
+  }
+  .auto-index td:first-child:before
+  {
+    counter-increment: Serial;
+    content:counter(Serial);
+  }
+</style>
+{% endblock %}
